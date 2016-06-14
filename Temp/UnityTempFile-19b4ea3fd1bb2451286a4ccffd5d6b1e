@@ -44,5 +44,8 @@
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_OSX
 'Assets/Scripts/CloudCrafter.cs'
+'Assets/Scripts/FollowCam.cs'
+'Assets/Scripts/ProjectileLine.cs'
+'Assets/Scripts/Slingshot.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Xml.Linq.dll'

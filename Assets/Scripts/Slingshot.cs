@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Slingshot : MonoBehaviour {
 	//fields set in the Unity Inspector pane
+	static public Slingshot S;
+
 	public GameObject prefabProjectile;
 	public float velocityMult = 4f;
 	public bool _____________________;
@@ -11,6 +13,36 @@ public class Slingshot : MonoBehaviour {
 	public Vector3 launchPos;
 	public GameObject projectile;
 	public bool aimingMode;
+
+	void Awake() {
+		S = this;
+
+		Transform launchPointTrans = transform.FindChild ("LaunchPoint");
+		launchPoint = launchPointTrans.gameObject;
+		launchPoint.SetActive (false);
+		launchPos = launchPointTrans.position;
+	}
+
+	void OnMouseEnter() {
+		//print ("Slingshot:OnMouseEnter()");
+		launchPoint.SetActive (true);
+	}
+	
+	void OnMouseExit() {
+		//print ("Slingshot:OnMouseExit()");
+		launchPoint.SetActive (false);
+	}
+	
+	void OnMouseDown() {
+		//The player has pressed the mouse button while over Slingshot
+		aimingMode = true;
+		//Instantiate a Projectile
+		projectile = Instantiate (prefabProjectile) as GameObject;
+		//Start it at the launchPoint
+		projectile.transform.position = launchPos;
+		//Set it to isKinematic for now
+		projectile.rigidbody.isKinematic = true;
+	}
 
 	void Update(){
 		//If Slingshot is not in aimingMode, don't run this code
@@ -40,35 +72,6 @@ public class Slingshot : MonoBehaviour {
 			FollowCam.S.poi = projectile;
 			projectile = null;
 		}
-	}
-
-
-	void Awake() {
-		Transform launchPointTrans = transform.Find ("LaunchPoint");
-		launchPoint = launchPointTrans.gameObject;
-		launchPoint.SetActive (false);
-		launchPos = launchPointTrans.position;
-	}
-
-	void OnMouseEnter() {
-		//print ("Slingshot:OnMouseEnter()");
-		launchPoint.SetActive (true);
-	}
-
-	void OnMouseExit() {
-		//print ("Slingshot:OnMouseExit()");
-		launchPoint.SetActive (false);
-	}
-
-	void OnMouseDown() {
-		//The player has pressed the mouse button while over Slingshot
-		aimingMode = true;
-		//Instantiate a Projectile
-		projectile = Instantiate (prefabProjectile) as GameObject;
-		//Start it at the launchPoint
-		projectile.transform.position = launchPos;
-		//Set it to isKinematic for now
-		projectile.rigidbody.isKinematic = true;
 	}
 
 }
